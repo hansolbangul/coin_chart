@@ -148,7 +148,6 @@ interface ILocation {
 
 function Coin() {
   const { coinId } = useParams();
-  console.log(coinId);
   const { state } = useLocation() as ILocation;
   const priceMatch = useMatch('/:coinId/price');
   const chartMatch = useMatch('/:coinId/chart');

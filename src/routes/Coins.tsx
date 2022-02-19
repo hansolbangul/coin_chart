@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { fetchCoins } from './api';
+import { isDarkAtom } from '../atoms';
 
 const Container = styled.div`
   padding: 0px 20px;
@@ -29,10 +31,11 @@ const Loader = styled.span`
 const CoinsList = styled.ul``;
 
 const Coin = styled.li`
-  background-color: white;
-  color: ${(props) => props.theme.bgColor};
+  background-color: ${(props) => props.theme.cardBgColor};
+  color: ${(props) => props.theme.textColor};
   border-radius: 15px;
   margin-bottom: 10px;
+  border: 1px solid white;
   a {
     display: flex;
     align-items: center;
@@ -62,6 +65,7 @@ interface Icoin {
 }
 
 function Coins() {
+  const setterEn = useSetRecoilState(isDarkAtom);
   const { isLoading, data } = useQuery<Icoin[]>('allCoins', fetchCoins);
   // const [coins, setCoins] = useState<Icoin[]>([]);
   // const [loading, setLoading] = useState(true);
@@ -77,6 +81,13 @@ function Coins() {
     <Container>
       <Header>
         <Title>코인</Title>
+        <button
+          onClick={() => {
+            setterEn((props) => !props);
+          }}
+        >
+          Toggle Mode
+        </button>
       </Header>
       {isLoading ? (
         <Loader>Loading...</Loader>
