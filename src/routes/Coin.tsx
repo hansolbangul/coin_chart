@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Routes, Route, useLocation, useParams } from 'react-router';
 import Price from './Price';
 import Chart from './Chart';
-import { Link, useMatch } from 'react-router-dom';
+import { Link, useMatch, Outlet } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { fetchCoinInfo, fetchCoinTickers } from './api';
 
@@ -217,10 +217,11 @@ function Coin() {
             </Tab>
           </Tabs>
 
-          <Routes>
+          {/* <Routes>
             <Route path={`/${coinId}/price`} element={<Price />}></Route>
             <Route path={`/${coinId}/chart`} element={<Chart coinId={coinId!} />}></Route>
-          </Routes>
+          </Routes> */}
+          <Outlet context={{ coinId: coinId }} />
         </>
       )}
     </Container>
